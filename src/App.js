@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import { useQuery } from "@apollo/react-hooks";
-import gql from "graphql-tag";
+import { useQuery, gql } from "@apollo/client";
 
 const ALL_DATA_QUERY = gql`
   query AllData {
@@ -28,7 +27,7 @@ const CLOCK_SPEED_QUERY = gql`
 
 function ClockSpeed() {
   /**
-   * Requested data is in the cache and gets returned immediately, as expected.
+   * loading is true even when data is already available in the cache.
    */
   const {
     loading,
