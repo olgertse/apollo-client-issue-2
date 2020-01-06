@@ -3,31 +3,54 @@ import {
   GraphQLObjectType,
   GraphQLID,
   GraphQLString,
-  GraphQLList,
+  GraphQLInt
 } from 'graphql';
 
-const PersonType = new GraphQLObjectType({
-  name: 'Person',
-  fields: {
-    id: { type: GraphQLID },
-    name: { type: GraphQLString },
-  },
-});
+const macPro = {
+  id: 1,
+  name: 'Mac Pro',
+  vendor: 'Apple',
+  cpu: {
+    model: 'Intel Xeon',
+    clockSpeed: 3500
+  }
+}
 
-const peopleData = [
-  { id: 1, name: 'John Smith' },
-  { id: 2, name: 'Sara Smith' },
-  { id: 3, name: 'Budd Deey' },
-];
+const ProcessorType = new GraphQLObjectType({
+  name: 'ProcessorType',
+  fields: {
+    model: {
+      type: GraphQLString,
+    },
+    clockSpeed: {
+      type: GraphQLInt,
+    }
+  }
+})
+
+const ComputerType = new GraphQLObjectType({
+  name: 'ComputerType',
+  fields: {
+    id: {
+      type: GraphQLID,
+    },
+    name: {
+      type: GraphQLString,
+    },
+    cpu: {
+      type: ProcessorType,
+    }
+  }
+})
 
 const QueryType = new GraphQLObjectType({
-  name: 'Query',
+  name: "Query",
   fields: {
-    people: {
-      type: new GraphQLList(PersonType),
-      resolve: () => peopleData,
-    },
-  },
+    computer: {
+      type: ComputerType,
+      resolve() { return macPro }
+    }
+  }
 });
 
 export const schema = new GraphQLSchema({ query: QueryType });
