@@ -40,7 +40,7 @@ function Model() {
   const {
     loading,
     data
-  } = useQuery(MODEL_QUERY);
+  } = useQuery(MODEL_QUERY, { fetchPolicy: 'cache-only' });
 
   console.log('MODEL_QUERY:', { loading, data });
 
@@ -58,7 +58,7 @@ function ClockSpeed() {
   const {
     loading,
     data
-  } = useQuery(CLOCK_SPEED_QUERY);
+  } = useQuery(CLOCK_SPEED_QUERY, { fetchPolicy: 'cache-and-network' });
 
   console.log('CLOCK_SPEED_QUERY:', { loading, data });
 
