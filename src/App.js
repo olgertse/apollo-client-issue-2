@@ -44,7 +44,7 @@ function Model() {
 
   console.log('MODEL_QUERY:', { loading, data });
 
-  return (
+  return loading ? 'loading...' : (
     <ul>
       <li>{`CPU: ${data.computer.cpu.model}`}</li>
     </ul>
@@ -62,7 +62,7 @@ function ClockSpeed() {
 
   console.log('CLOCK_SPEED_QUERY:', { loading, data });
 
-  return (
+  return loading ? 'loading...' : (
     <ul>
       <li>{`Clock speed: ${data.computer.cpu.clockSpeed} MHz`}</li>
     </ul>
