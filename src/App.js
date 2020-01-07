@@ -15,6 +15,17 @@ const ALL_DATA_QUERY = gql`
   }
 `;
 
+const MODEL_QUERY = gql`
+  query Model {
+    computer {
+      id
+      cpu {
+        model
+      }
+    }
+  }
+`;
+
 const CLOCK_SPEED_QUERY = gql`
   query ClockSpeed {
     computer {
@@ -25,6 +36,21 @@ const CLOCK_SPEED_QUERY = gql`
     }
   }
 `;
+
+function Model() {
+  const {
+    loading,
+    data
+  } = useQuery(MODEL_QUERY);
+
+  console.log('MODEL_QUERY:', { loading, data });
+
+  return (
+    <ul>
+      <li>{`CPU: ${data.computer.cpu.model}`}</li>
+    </ul>
+  )
+}
 
 function ClockSpeed() {
   /**
@@ -50,7 +76,7 @@ export default function App() {
     data
   } = useQuery(ALL_DATA_QUERY);
 
-  const [showDetails, setShowDetails] = useState(false);
+  const [item, setItem] = useState('');
 
   return (
     <main>
@@ -64,11 +90,10 @@ export default function App() {
       ) : (
         <div>
           <h3>{data.computer.name}</h3>
-          <ul>
-            <li>{`CPU: ${data.computer.cpu.model}`}</li>
-          </ul>
-          <button onClick={() => setShowDetails(!showDetails)}>{showDetails ? 'Hide clock speed' : 'Show clock speed'}</button>
-          {showDetails && <ClockSpeed />}
+          <button onClick={() => setItem('model')}>Model</button>
+          <button onClick={() => setItem('clock-speed')}>Clock speed</button>
+          {item === 'model' && <Model />}
+          {item === 'clock-speed' && <ClockSpeed />}
         </div> 
       )}
     </main>
