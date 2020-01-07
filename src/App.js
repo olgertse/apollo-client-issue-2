@@ -53,7 +53,8 @@ function Model() {
 
 function ClockSpeed() {
   /**
-   * loading is true even when data is already available in the cache.
+   * Instead of merging the 'cpu' field in cache it gets overwritten by a new object,
+   * losing previously stored values ('model' field in this example).
    */
   const {
     loading,
